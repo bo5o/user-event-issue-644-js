@@ -1,12 +1,14 @@
-import { shallowMount } from '@vue/test-utils'
-import HelloWorld from '@/components/HelloWorld.vue'
+import { screen, render } from "@testing-library/vue";
 
-describe('HelloWorld.vue', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'new message'
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg }
-    })
-    expect(wrapper.text()).toMatch(msg)
-  })
-})
+import MyComponent from "../../src/components/MyComponent.vue";
+import userEvent from "@testing-library/user-event";
+
+describe("MyComponent.vue", () => {
+  it("can change value", async () => {
+    render(MyComponent);
+
+    const input = screen.getByPlaceholderText("some field");
+
+    await userEvent.type(input, "abcd", { delay: 50 });
+  });
+});
